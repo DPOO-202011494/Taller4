@@ -1,6 +1,7 @@
 package uniandes.dpoo.aerolinea.modelo.cliente;
 
 import uniandes.dpoo.aerolinea.modelo.Vuelo;
+import java.util.Objects;
 import uniandes.dpoo.aerolinea.tiquetes.Tiquete;
 
 public class ClienteNatural extends Cliente{
@@ -19,9 +20,11 @@ public class ClienteNatural extends Cliente{
 		this.nombre = nombre;
 	}
 
-	//TODO
+
 	public String getIdentificador() {
-		return "Nose";
+		int Hash = Objects.hashCode(this.nombre);
+		String Identificador = String.valueOf(Hash);
+		return Identificador;
 	}
 
 

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import uniandes.dpoo.aerolinea.modelo.cliente.Cliente;
 import uniandes.dpoo.aerolinea.modelo.tarifas.CalculadoraTarifas;
+import uniandes.dpoo.aerolinea.tiquetes.Tiquete;
 
 /**Esta clase tiene la información de un vuelo particular que cubre una ruta y se lleva a cabo en 
  * una cierta fecha. Los vuelos son las unidades a las cuales están asociadas las ventas de tiquetes
@@ -40,26 +41,27 @@ public class Vuelo {
 	}
 	
 	public boolean equals(Object obj) {
+		return false;
 		
 	}
 	
 	
 	public Avion getAvion() {
-		return avion;
+		return this.avion;
 	}
 
 	public String getFecha() {
-		return fecha;
+		return this.fecha;
 	}
 
 
 	public Ruta getRuta() {
-		return ruta;
+		return this.ruta;
 	}
 
 
 	public Map<String, Tiquete> getTiquetes() {
-		return tiquetes;
+		return this.tiquetes;
 	}
 	
 	/**Vende una determinada cantidad de tiquetes para el vuelo y los deja registrados en el mapa de tiquetes
@@ -69,7 +71,7 @@ public class Vuelo {
 	 * @return
 	 */
 	
-	public int vendertTiquetes(Cliente cliente,CalculadoraTarifas calculadora, int cantidad) {
+	public int venderTiquetes(Cliente cliente,CalculadoraTarifas calculadora, int cantidad) {
 		//TODO
 		return 0;
 		

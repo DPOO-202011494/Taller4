@@ -1,6 +1,7 @@
 package uniandes.dpoo.aerolinea.modelo.cliente;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.json.JSONObject;
 
@@ -97,8 +98,9 @@ public class ClienteCorporativo extends Cliente
 
 	@Override
 	public String getIdentificador() {
-		// TODO Auto-generated method stub
-		return null;
+		int Hash = Objects.hashCode(this.nombreEmpresa);
+		String Identificador = String.valueOf(Hash);
+		return Identificador;
 	}
 
 

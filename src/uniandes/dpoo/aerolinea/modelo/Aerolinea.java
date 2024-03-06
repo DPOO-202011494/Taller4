@@ -1,6 +1,9 @@
 package uniandes.dpoo.aerolinea.modelo;
 
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import uniandes.dpoo.aerolinea.exceptions.InformacionInconsistenteException;
 import uniandes.dpoo.aerolinea.exceptions.VueloSobrevendidoException;
@@ -163,7 +167,13 @@ public class Aerolinea
      */
     public Vuelo getVuelo( String codigoRuta, String fechaVuelo )
     {
-        // TODO implementar
+        for (Vuelo vuelo: vuelos) {
+        	if (vuelo.getFecha() == fechaVuelo) {
+        		if (vuelo.getRuta().getCodigoRuta()== codigoRuta) {
+        			return vuelo;
+        		}	
+        	}
+        }
         return null;
     }
 
@@ -182,8 +192,14 @@ public class Aerolinea
      */
     public Collection<Tiquete> getTiquetes( )
     {
-        // TODO implementar
-        return null;
+    	Collection<Tiquete> tiquetesTotales = new ArrayList<>();
+    	
+        for(Vuelo vuelo:vuelos) {
+        	Collection<Tiquete> tiquetesVuelo = vuelo.getTiquetes().values();	
+        	tiquetesTotales.addAll(tiquetesVuelo);
+        }
+        
+        return tiquetesTotales;
 
     }
 
@@ -203,7 +219,19 @@ public class Aerolinea
      */
     public void cargarAerolinea( String archivo, String tipoArchivo ) throws TipoInvalidoException, IOException, InformacionInconsistenteException
     {
-        // TODO implementar
+    	if(tipoArchivo == "CentralPersistencia.JSON") {
+    		ArrayList<String> textos = new ArrayList<String>();
+    		BufferedReader br = new BufferedReader (new FileReader(new File(archivo)));;
+			String linea;
+			while((linea=br.readLine()) != null) {
+				textos.add(linea);
+			}
+    	} 
+    	if (tipoArchivo == "CentralPersistencia.PLAIN") {
+    		
+    		
+    	}
+    	
     }
 
     /**
@@ -265,7 +293,22 @@ public class Aerolinea
      */
     public void programarVuelo( String fecha, String codigoRuta, String nombreAvion ) throws Exception
     {
-        // TODO Implementar el método
+        for (Vuelo vuelo: vuelos) {
+        	if(vuelo.getFecha() == fecha && vuelo.getAvion().getNombre()==nombreAvion ) {
+            		throw new Exception("Vuelo Ocupado");
+        		}
+        }
+        Avion avionI = null;
+        for (Avion avion: aviones) {
+        	if(avion.getNombre()==nombreAvion ) {
+        		avionI = avion;
+    		}
+        }
+        Ruta rutaI = rutas.get(codigoRuta);
+  
+        Vuelo nuevoVuelo = new Vuelo(rutaI, fecha, avionI);
+        
+        vuelos.add(nuevoVuelo);
     }
 
     /**

@@ -17,7 +17,7 @@ public abstract class CalculadoraTarifas {
 	public CalculadoraTarifas() {
 
 	}
-	//TODO
+	
 	protected abstract int calcularCostoBase(Vuelo vuelo,Cliente cliente);
 	
 	protected int calcularDistanciaVuelo(Ruta ruta) {
