@@ -98,16 +98,13 @@ public class ClienteCorporativo extends Cliente
 
 	@Override
 	public String getIdentificador() {
-		int Hash = Objects.hashCode(this.nombreEmpresa);
-		String Identificador = String.valueOf(Hash);
-		return Identificador;
+		return this.nombreEmpresa;
 	}
 
 
 	@Override
 	public String getTipoCliente() {
-		// TODO Auto-generated method stub
-		return null;
+		return ClienteCorporativo.CORPORATIVO;
 	}
 
 

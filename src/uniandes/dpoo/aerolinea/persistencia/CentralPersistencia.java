@@ -5,7 +5,7 @@ import uniandes.dpoo.aerolinea.modelo.Aerolinea;
 /**
  * Esta clase cumple el rol de una fábrica de componentes que se encargan de manejar la persistencia de una aerolínea y de sus tiquetes
  */
-public class CentralPersistencia implements IPersistenciaAerolinea
+public class CentralPersistencia
 {
     /**
      * La cadena utilizada para identificar a los archivos en formato JSON
@@ -28,8 +28,10 @@ public class CentralPersistencia implements IPersistenciaAerolinea
      */
     public static IPersistenciaAerolinea getPersistenciaAerolinea( String tipoArchivo ) throws TipoInvalidoException
     {
-		return null;
-        // TODO implementar
+        if( JSON.equals( tipoArchivo ) )
+            return new PersistenciaAerolineaJson( );
+        else
+            throw new TipoInvalidoException( tipoArchivo );
     }
 
     /**
@@ -49,15 +51,4 @@ public class CentralPersistencia implements IPersistenciaAerolinea
             throw new TipoInvalidoException( tipoArchivo );
     }
 
-	@Override
-	public void cargarAerolinea(String archivo, Aerolinea aerolinea) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void salvarAerolinea(String archivo, Aerolinea aerolinea) {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -22,9 +22,7 @@ public class ClienteNatural extends Cliente{
 
 
 	public String getIdentificador() {
-		int Hash = Objects.hashCode(this.nombre);
-		String Identificador = String.valueOf(Hash);
-		return Identificador;
+		return this.nombre;
 	}
 
 

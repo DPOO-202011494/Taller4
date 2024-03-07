@@ -13,12 +13,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import uniandes.dpoo.aerolinea.exceptions.InformacionInconsistenteException;
 import uniandes.dpoo.aerolinea.exceptions.VueloSobrevendidoException;
 import uniandes.dpoo.aerolinea.modelo.cliente.Cliente;
 import uniandes.dpoo.aerolinea.persistencia.CentralPersistencia;
 import uniandes.dpoo.aerolinea.persistencia.IPersistenciaAerolinea;
 import uniandes.dpoo.aerolinea.persistencia.IPersistenciaTiquetes;
+import uniandes.dpoo.aerolinea.persistencia.PersistenciaAerolineaJson;
 import uniandes.dpoo.aerolinea.persistencia.TipoInvalidoException;
 import uniandes.dpoo.aerolinea.tiquetes.Tiquete;
 
@@ -49,6 +53,12 @@ public class Aerolinea
      * Una lista de los vuelos programados por la aerolínea
      */
     private List<Vuelo> vuelos;
+    
+    /**
+     * Una lista de los aeropuertos que tienen convencio con la aerolínea
+     */    
+    
+    private List<Aeropuerto> aeropuertos;
 
     /**
      * Un mapa con los clientes de la aerolínea.
@@ -219,19 +229,9 @@ public class Aerolinea
      */
     public void cargarAerolinea( String archivo, String tipoArchivo ) throws TipoInvalidoException, IOException, InformacionInconsistenteException
     {
-    	if(tipoArchivo == "CentralPersistencia.JSON") {
-    		ArrayList<String> textos = new ArrayList<String>();
-    		BufferedReader br = new BufferedReader (new FileReader(new File(archivo)));;
-			String linea;
-			while((linea=br.readLine()) != null) {
-				textos.add(linea);
-			}
-    	} 
-    	if (tipoArchivo == "CentralPersistencia.PLAIN") {
-    		
-    		
-    	}
-    	
+        IPersistenciaAerolinea cargador = CentralPersistencia.getPersistenciaAerolinea( tipoArchivo );
+        cargador.cargarAerolinea( archivo, this );
+
     }
 
     /**
@@ -243,7 +243,8 @@ public class Aerolinea
      */
     public void salvarAerolinea( String archivo, String tipoArchivo ) throws TipoInvalidoException, IOException
     {
-        // TODO implementar
+        IPersistenciaAerolinea cargador = CentralPersistencia.getPersistenciaAerolinea( tipoArchivo );
+        cargador.salvarAerolinea( archivo, this);
     }
 
     /**
@@ -352,5 +353,11 @@ public class Aerolinea
         // TODO Implementar el método
         return "";
     }
+
+	public List<Aeropuerto> getAeropuertos() {
+		return aeropuertos;
+	}
+    
+    
 
 }
